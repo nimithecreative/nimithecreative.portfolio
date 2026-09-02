@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>_nimithecreative — Freelance Video Editor</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--mid:#888;--border:#e2e2e2}
+body{font-family:'Inter',sans-serif;background:#fff;color:#0a0a0a;font-size:15px;line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:0 2.5rem;height:60px;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:100}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.02em}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:13px;color:var(--mid);letter-spacing:0.04em;cursor:pointer}
+.nav-links a:hover{color:#000}
+.nav-hire{background:#000;color:#fff;padding:0.5rem 1.2rem;font-size:12px;font-weight:500;letter-spacing:0.06em;border:none;cursor:pointer}
+.pill{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mid);border:1px solid var(--border);padding:0.3rem 0.8rem;border-radius:20px}
+.dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block}
+
+/* HERO */
+.hero{padding:6rem 2.5rem 5rem;border-bottom:1px solid var(--border);max-width:1100px;margin:0 auto}
+.hero-tag{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);margin-bottom:1.5rem}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(40px,6.5vw,76px);font-weight:800;line-height:1.0;letter-spacing:-0.03em;color:#0a0a0a;margin-bottom:1.5rem}
+.hero h1 em{font-style:italic;font-weight:400}
+.hero-sub{font-size:16px;color:var(--mid);max-width:520px;margin-bottom:2.5rem;line-height:1.8}
+.hero-actions{display:flex;align-items:center;gap:1rem;margin-bottom:3rem}
+.btn-black{background:#000;color:#fff;padding:0.8rem 1.8rem;font-size:13px;font-weight:500;letter-spacing:0.06em;border:none;cursor:pointer}
+.btn-ghost{background:transparent;color:#000;padding:0.8rem 1.8rem;font-size:13px;letter-spacing:0.06em;border:1px solid #ccc;cursor:pointer}
+.platform-row{display:flex;align-items:center;gap:1rem;margin-bottom:3rem}
+.platform-label{font-size:12px;color:#bbb}
+.platform-icons{display:flex;gap:0.8rem}
+.platform-icon{width:32px;height:32px;background:#f0f0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.reel-strip{display:flex;gap:1rem;overflow:hidden}
+.reel-card{flex:0 0 260px;height:150px;background:#111;border-radius:4px;overflow:hidden}
+.reel-card iframe{width:100%;height:100%;border:none}
+
+/* STATS */
+.stats-bar{display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat{flex:1;padding:2rem 2.5rem;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;letter-spacing:-0.03em}
+.stat-l{font-size:12px;color:var(--mid);letter-spacing:0.06em;text-transform:uppercase;margin-top:4px}
+
+/* SECTIONS */
+.section{padding:5rem 2.5rem;max-width:1100px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);margin-bottom:0.8rem}
+.s-heading{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.5rem}
+.s-sub{font-size:14px;color:var(--mid);margin-bottom:3rem}
+.bb{border-bottom:1px solid var(--border)}
+
+/* WHAT I BRING */
+.what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.what-card{background:#fff;padding:2rem 1.8rem}
+.what-icon{font-size:22px;margin-bottom:1rem}
+.what-title{font-size:15px;font-weight:600;margin-bottom:6px}
+.what-desc{font-size:13px;color:var(--mid);line-height:1.7}
+
+/* WORKS */
+.filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.filter-btn{padding:0.5rem 1.1rem;font-size:12px;font-family:'Inter',sans-serif;letter-spacing:0.05em;border:1px solid var(--border);background:#fff;color:var(--mid);cursor:pointer;border-radius:20px;transition:all 0.15s}
+.filter-btn:hover{border-color:#000;color:#000}
+.filter-btn.active{background:#000;color:#fff;border-color:#000}
+.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.work-card{background:#fff}
+.work-card.hidden{display:none}
+.video-wrap{width:100%;aspect-ratio:16/9;background:#111;position:relative;overflow:hidden}
+.video-wrap iframe{width:100%;height:100%;border:none;display:block}
+.video-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#111;cursor:pointer}
+.video-overlay:hover{background:#1a1a1a}
+.play-circle{width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.play-circle svg{fill:#fff;width:18px;height:18px;margin-left:3px;opacity:0.8}
+.overlay-label{font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase}
+.work-meta{padding:1rem 1.2rem}
+.work-cat{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:3px}
+.work-title-t{font-size:13px;font-weight:500;color:#0a0a0a;line-height:1.4}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-img{width:100%;aspect-ratio:3/4;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#bbb;letter-spacing:0.08em;text-transform:uppercase}
+.about-h{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:1.5rem;line-height:1.3}
+.about-p{font-size:14px;color:#555;line-height:1.9;margin-bottom:1.2rem}
+.tools-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#bbb;margin-bottom:0.8rem;margin-top:2rem}
+.tools-list{display:flex;gap:0.6rem;flex-wrap:wrap}
+.tool-tag{background:#f5f5f5;padding:0.4rem 0.9rem;font-size:12px;border-radius:20px;color:#555}
+
+/* SERVICES */
+.services-list{display:flex;flex-direction:column}
+.svc{display:grid;grid-template-columns:60px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border)}
+.svc-num{font-family:'Syne',sans-serif;font-size:13px;color:#ccc;font-weight:600;padding-top:3px}
+.svc-name{font-size:16px;font-weight:600;margin-bottom:6px}
+.svc-desc{font-size:13px;color:var(--mid);line-height:1.7;margin-bottom:1rem}
+.svc-tags{display:flex;gap:6px;flex-wrap:wrap}
+.s-tag{font-size:11px;border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:20px;color:#555}
+
+/* PROCESS */
+.process-steps{display:flex;border:1px solid var(--border);margin-top:2rem}
+.step{flex:1;padding:2rem 1.5rem;border-right:1px solid var(--border)}
+.step:last-child{border-right:none}
+.step-num{font-family:'Syne',sans-serif;font-size:11px;color:#ccc;font-weight:700;margin-bottom:1rem;letter-spacing:0.1em}
+.step-title{font-size:15px;font-weight:600;margin-bottom:6px}
+.step-desc{font-size:12px;color:var(--mid);line-height:1.7}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2rem}
+.testi-card{background:#fff;padding:1.8rem}
+.testi-stars{font-size:12px;margin-bottom:1rem;letter-spacing:2px}
+.testi-text{font-size:13px;color:#444;line-height:1.8;margin-bottom:1.5rem}
+.testi-name{font-size:13px;font-weight:600}
+.testi-role{font-size:11px;color:var(--mid)}
+
+/* FAQ */
+.faq-item{padding:1.5rem 0;border-bottom:1px solid var(--border);cursor:pointer}
+.faq-q{font-size:15px;font-weight:500;display:flex;justify-content:space-between;align-items:center}
+.faq-icon{font-size:18px;color:#ccc;transition:transform 0.2s}
+.faq-a{font-size:13px;color:var(--mid);line-height:1.8;margin-top:1rem;display:none}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+
+/* CONTACT */
+.contact-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-info-row{display:flex;flex-direction:column;gap:0.8rem;margin-top:1.5rem}
+.contact-info-item{font-size:13px;color:#555}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid)}
+.form-input{border:1px solid var(--border);padding:0.8rem 1rem;font-family:'Inter',sans-serif;font-size:14px;color:#000;background:#fff;outline:none}
+.form-input:focus{border-color:#000}
+.form-textarea{border:1px solid var(--border);padding:0.8rem 1rem;font-family:'Inter',sans-serif;font-size:14px;color:#000;background:#fff;min-height:120px;resize:vertical;outline:none}
+.form-textarea:focus{border-color:#000}
+.form-select{border:1px solid var(--border);padding:0.8rem 1rem;font-family:'Inter',sans-serif;font-size:14px;color:#000;background:#fff;outline:none;-webkit-appearance:none}
+.submit-btn{background:#000;color:#fff;padding:1rem;font-size:13px;font-weight:500;letter-spacing:0.08em;border:none;cursor:pointer;text-transform:uppercase;margin-top:0.5rem}
+
+/* FOOTER */
+footer{padding:3rem 2.5rem;border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:0.8rem}
+.footer-tagline{font-size:13px;color:var(--mid);line-height:1.7}
+.footer-col-title{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#bbb;margin-bottom:1rem}
+.footer-links{display:flex;flex-direction:column;gap:0.6rem}
+.footer-links a{font-size:13px;color:var(--mid);cursor:pointer}
+.footer-links a:hover{color:#000}
+.footer-bottom{display:flex;justify-content:space-between;padding-top:2rem;border-top:1px solid var(--border);font-size:12px;color:#bbb}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">_nimithecreative</div>
+  <ul class="nav-links">
+    <li><a onclick="document.getElementById('works').scrollIntoView({behavior:'smooth'})">Projects</a></li>
+    <li><a onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</a></li>
+    <li><a onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Services</a></li>
+    <li><a onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire me</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <div class="pill"><span class="dot"></span>Open to projects</div>
+    <button class="nav-hire" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire me</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="bb">
+<div class="hero">
+  <p class="hero-tag">Freelance Video Editor & Content Creator — Lagos, Nigeria</p>
+  <h1>Visually striking.<br><em>Impossible to scroll past.</em></h1>
+  <p class="hero-sub">I create content that stops the scroll, holds attention, and leaves an impression — for creators, brands, events, and everything in between.</p>
+  <div class="hero-actions">
+    <button class="btn-black" onclick="document.getElementById('works').scrollIntoView({behavior:'smooth'})">View my work</button>
+    <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a project</button>
+  </div>
+  <div class="platform-row">
+    <span class="platform-label">I edit for</span>
+    <div class="platform-icons">
+      <div class="platform-icon">📱</div>
+      <div class="platform-icon">▶️</div>
+      <div class="platform-icon">🎵</div>
+    </div>
+  </div>
+  <div class="reel-strip">
+    <div class="reel-card"><iframe src="https://drive.google.com/file/d/1puBOpjDbuXbU2eMJ0yvadCqZukvAwTYX/preview" allow="autoplay"></iframe></div>
+    <div class="reel-card"><iframe src="https://drive.google.com/file/d/1FnwgEgwZEx1hBhf10ogmgPPueTHdSPUX/preview" allow="autoplay"></iframe></div>
+    <div class="reel-card"><iframe src="https://drive.google.com/file/d/10w-uS52WcRs8g5qP5B54ztJcElS74q_n/preview" allow="autoplay"></iframe></div>
+  </div>
+</div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-n">2+</div><div class="stat-l">Years of experience</div></div>
+  <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Projects delivered</div></div>
+  <div class="stat"><div class="stat-n">26+</div><div class="stat-l">Events covered</div></div>
+  <div class="stat"><div class="stat-n">100%</div><div class="stat-l">On-time delivery</div></div>
+</div>
+
+<!-- WHAT I BRING -->
+<div class="bb">
+<div class="section">
+  <p class="eyebrow">What I bring</p>
+  <h2 class="s-heading">More than an editor —<br>a creative partner</h2>
+  <p class="s-sub" style="margin-bottom:2rem">Whether you're a brand, a creator, or someone with a moment worth capturing — I bring the ideas and the execution.</p>
+  <div class="what-grid">
+    <div class="what-card"><div class="what-icon">🎯</div><div class="what-title">Scroll-stopping content</div><div class="what-desc">I don't just cut footage — I build content that earns attention. Hooks, pacing, transitions, and visual energy all designed for the platform.</div></div>
+    <div class="what-card"><div class="what-icon">💡</div><div class="what-title">Content ideation</div><div class="what-desc">Stuck on what to post? I can help you develop engaging content ideas that fit your brand voice and actually connect with your audience.</div></div>
+    <div class="what-card"><div class="what-icon">🎬</div><div class="what-title">Full creative execution</div><div class="what-desc">From concept to final export — I handle the edit, motion graphics, audio, and finishing so you can focus on everything else.</div></div>
+    <div class="what-card"><div class="what-icon">✨</div><div class="what-title">Special moments, beautifully told</div><div class="what-desc">Weddings, graduations, birthdays — those once-in-a-lifetime moments deserve an edit that actually does them justice.</div></div>
+    <div class="what-card"><div class="what-icon">🤝</div><div class="what-title">Creator collabs</div><div class="what-desc">I love working with creators who care about quality. If you have a vision and an audience, let's make content they won't stop rewatching.</div></div>
+    <div class="what-card"><div class="what-icon">📐</div><div class="what-title">Platform-native thinking</div><div class="what-desc">Every platform has its language. I edit with Instagram, TikTok, and YouTube in mind — so your content lands the way it's supposed to.</div></div>
+  </div>
+</div>
+</div>
+
+<!-- WORKS -->
+<div class="bb">
+<div class="section" id="works">
+  <p class="eyebrow">Work</p>
+  <h2 class="s-heading">Selected edits</h2>
+  <p class="s-sub">22 projects across milestones, brands, events, creator content, and more.</p>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filter('all',this)">All (22)</button>
+    <button class="filter-btn" onclick="filter('milestone',this)">Milestones & Personal</button>
+    <button class="filter-btn" onclick="filter('brand',this)">Brand & Commercial</button>
+    <button class="filter-btn" onclick="filter('creator',this)">Creator / YouTube</button>
+    <button class="filter-btn" onclick="filter('event',this)">Events & Organisations</button>
+    <button class="filter-btn" onclick="filter('church',this)">Church & Faith</button>
+  </div>
+  <div class="works-grid" id="grid">
+
+    <!-- MILESTONES -->
+    <div class="work-card" data-cat="milestone">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1puBOpjDbuXbU2eMJ0yvadCqZukvAwTYX')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Milestone · Wedding</div><div class="work-title-t">Traditional Wedding Project</div></div>
+    </div>
+    <div class="work-card" data-cat="milestone">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1RE0BUUqVTPMnuWFuulZkL46cCvZH6btS')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Milestone · Celebration</div><div class="work-title-t">Bridal Shower Project</div></div>
+    </div>
+    <div class="work-card" data-cat="milestone">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1DYTCQ45lcVuB6_FzYfphyFEeOaGZNNOK')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Milestone · Graduation</div><div class="work-title-t">Convocation Highlights</div></div>
+    </div>
+
+    <!-- BRAND -->
+    <div class="work-card" data-cat="brand">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1FnwgEgwZEx1hBhf10ogmgPPueTHdSPUX')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Brand · @the.beigeshop</div><div class="work-title-t">Trade Fair Day 1 Highlights</div></div>
+    </div>
+    <div class="work-card" data-cat="brand">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1OBFHOTCOd-o0oUcA9OZHZfzi1PgFs1OZ')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Brand · @the.beigeshop</div><div class="work-title-t">Trade Fair Day 2 Highlights</div></div>
+    </div>
+    <div class="work-card" data-cat="brand">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1N2_d_1mwQYQHIiKKrfCWL0AjWXDBwWq8')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Brand · Commercial</div><div class="work-title-t">Brand Anniversary Content</div></div>
+    </div>
+
+    <!-- CREATOR -->
+    <div class="work-card" data-cat="creator">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1xZBxxlhCn6TxTXu25oZ2XiTGWxjul2kK')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Creator · YouTube</div><div class="work-title-t">YouTube Vlog Intro</div></div>
+    </div>
+    <div class="work-card" data-cat="creator">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1Jw6JGc5ejJ9qVv1JFurUG7LSlYKPX_bX')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Creator · YouTube</div><div class="work-title-t">YouTube Vlog Outro</div></div>
+    </div>
+    <div class="work-card" data-cat="creator">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1v-aQ70fd-DVPTv4fpyovs4fPz8ImESaC')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Creator · YouTube</div><div class="work-title-t">YouTube Channel Intro Video</div></div>
+    </div>
+
+    <!-- EVENTS -->
+    <div class="work-card" data-cat="event">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'10w-uS52WcRs8g5qP5B54ztJcElS74q_n')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Event · Conference</div><div class="work-title-t">Graduate Accelerate Conference 2026</div></div>
+    </div>
+    <div class="work-card" data-cat="event">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1yW-cY3Xvc1TaDYDQRUIJ909BMTqUgcSL')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Event · Conference</div><div class="work-title-t">Graduate Accelerate Conference 2026 — Cut 2</div></div>
+    </div>
+    <div class="work-card" data-cat="event">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1jIAXlj69tsGVdqvHRMTR-XyBBMvAJJE3')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Event · NGO / Organisation</div><div class="work-title-t">Junior Chambers International — LAUTECH Week</div></div>
+    </div>
+
+    <!-- CHURCH -->
+    <div class="work-card" data-cat="church">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1wDqWZSJ9etRIdAudPyI0NuWlte7rcyT0')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Church · The Set Apart Church</div><div class="work-title-t">The Set Apart Church</div></div>
+    </div>
+    <div class="work-card" data-cat="church">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1-dHxbQVgyUn0ydhx8b5x2I5Qdly5_HFU')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Church · The Set Apart Church</div><div class="work-title-t">The Set Apart Church — Project</div></div>
+    </div>
+    <div class="work-card" data-cat="church">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1YxDdWa3yXF0SD-WvloHZZojKynVkoMA_')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Church · Sermon</div><div class="work-title-t">Midweek Service Sermon Excerpt</div></div>
+    </div>
+    <div class="work-card" data-cat="church">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1vE3HtGY3dS_H8qYMgel9vZ6ccjHiPZIz')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Church · Sermon</div><div class="work-title-t">Midweek Sermon Excerpt</div></div>
+    </div>
+    <div class="work-card" data-cat="church">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1cwn6hGK9HZ_7y0GchVGkmpvXD0lzm8sS')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Church · Bible Study</div><div class="work-title-t">Bible Study Excerpt</div></div>
+    </div>
+    <div class="work-card" data-cat="church">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1zqHjQFOoWce1k9yZIjZI60DLaEpNJYyL')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Church · The Set Apart Church</div><div class="work-title-t">The Set Apart Church — Cut</div></div>
+    </div>
+    <div class="work-card" data-cat="church">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1eFiQlp3ZNjpBB5WADMianzrSGzcoh929')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Church · Service Recap</div><div class="work-title-t">Sunday Service Recap</div></div>
+    </div>
+    <div class="work-card" data-cat="church">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1I1lZIdieaDDNgNSYbtFROn3L5h7d2YXt')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Church · Service Recap</div><div class="work-title-t">Church Service Recap</div></div>
+    </div>
+    <div class="work-card" data-cat="church">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'1vtIMLDatyupJRlOGQ-SBbnulXiTfExKl')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Church · Content</div><div class="work-title-t">Church Content</div></div>
+    </div>
+    <div class="work-card" data-cat="church">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'19gkZE5qCICTIh2aDpW2xvaEzByXTl0iT')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Church · Content</div><div class="work-title-t">Church Content — Cut 2</div></div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ABOUT -->
+<div class="bb">
+<div class="section" id="about">
+  <div class="about-grid">
+    <div>
+      <img src="https://drive.google.com/thumbnail?id=1wpeQm4z8e2WYNgYVPED0lEwGLeqDP36A&sz=w800" alt="Eniola — _nimithecreative" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block;"/>
+    </div>
+    <div>
+      <p class="eyebrow" style="margin-bottom:1rem">About</p>
+      <h3 class="about-h">Hi, I'm Eniola — I edit videos and build content that makes people stop, watch, and feel something.</h3>
+      <p class="about-p">I'm a freelance video editor and content creator based in Lagos with 2+ years of experience working across social media content, brand videos, event films, and personal milestone highlights — weddings, graduations, birthday reels, you name it.</p>
+      <p class="about-p">I don't just cut footage. I think about the hook, the pacing, the visual energy, and the story behind every project. I've worked with creators, brands, organisations, and individuals who all had one thing in common — they wanted their content to actually connect.</p>
+      <p class="about-p">Open to one-off projects, creator collabs, retainers, and everything in between. Remote-friendly. Available across Nigeria and internationally.</p>
+      <div class="tools-label">Tools I use</div>
+      <div class="tools-list">
+        <span class="tool-tag">CapCut PC</span>
+        <span class="tool-tag">DaVinci Resolve</span>
+        <span class="tool-tag">Canva</span>
+        <span class="tool-tag">AI prompting</span>
+        <span class="tool-tag">Google Drive</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SERVICES -->
+<div class="bb">
+<div class="section" id="services">
+  <p class="eyebrow">Services</p>
+  <h2 class="s-heading">What I offer</h2>
+  <div class="services-list">
+    <div class="svc"><div class="svc-num">01</div><div><div class="svc-name">Short-form & social content</div><div class="svc-desc">Scroll-stopping Reels, TikToks, and YouTube Shorts built for reach, retention, and engagement. Hook, pacing, captions, audio — all of it.</div><div class="svc-tags"><span class="s-tag">Hook editing</span><span class="s-tag">Fast cuts</span><span class="s-tag">Animated captions</span><span class="s-tag">Audio sync</span><span class="s-tag">Vertical format</span></div></div></div>
+    <div class="svc"><div class="svc-num">02</div><div><div class="svc-name">Creator content & collabs</div><div class="svc-desc">I work with content creators who want quality without the back-and-forth stress. If you have a niche, an audience, and a vision — I can help you produce content your audience won't stop rewatching.</div><div class="svc-tags"><span class="s-tag">Content ideation</span><span class="s-tag">Talking head</span><span class="s-tag">Series editing</span><span class="s-tag">Brand integration</span></div></div></div>
+    <div class="svc"><div class="svc-num">03</div><div><div class="svc-name">Special moment highlights</div><div class="svc-desc">Weddings, graduations, birthdays, proposals — your most important moments deserve an edit that captures the emotion and the energy. Beautifully paced, emotionally rich, and made to last.</div><div class="svc-tags"><span class="s-tag">Wedding highlights</span><span class="s-tag">Graduation films</span><span class="s-tag">Birthday reels</span><span class="s-tag">Cinematic pacing</span></div></div></div>
+    <div class="svc"><div class="svc-num">04</div><div><div class="svc-name">Brand & promotional videos</div><div class="svc-desc">Product launches, unboxing reels, testimonial edits, and promotional content that makes your brand look exactly as good as it is.</div><div class="svc-tags"><span class="s-tag">Product launch</span><span class="s-tag">Testimonial edits</span><span class="s-tag">Branded intro/outro</span><span class="s-tag">Motion text</span></div></div></div>
+    <div class="svc"><div class="svc-num">05</div><div><div class="svc-name">Event recap films</div><div class="svc-desc">Conferences, campus events, NGO events, worship nights — cinematic recap films that capture the atmosphere, not just the footage.</div><div class="svc-tags"><span class="s-tag">Event coverage</span><span class="s-tag">Story structuring</span><span class="s-tag">Colour grading</span><span class="s-tag">Sound design</span></div></div></div>
+    <div class="svc"><div class="svc-num">06</div><div><div class="svc-name">Motion graphics & visual design</div><div class="svc-desc">Kinetic text, logo animations, animated transitions, branded intro/outro sequences — visual elements that make your content pop and your brand feel polished.</div><div class="svc-tags"><span class="s-tag">Kinetic text</span><span class="s-tag">Logo animation</span><span class="s-tag">Transitions</span><span class="s-tag">Title cards</span></div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- PROCESS -->
+<div class="bb">
+<div class="section">
+  <p class="eyebrow">The process</p>
+  <h2 class="s-heading">How we'll work together</h2>
+  <div class="process-steps">
+    <div class="step"><div class="step-num">01</div><div class="step-title">Discovery</div><div class="step-desc">We talk about your goals, audience, and style — so I understand what the final cut should feel like.</div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-title">Upload</div><div class="step-desc">You send footage and assets via Google Drive or WeTransfer. I confirm everything before starting.</div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-title">Edit</div><div class="step-desc">Full post-production — cutting, colour grading, audio cleanup, motion graphics, and finishing.</div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-title">Review</div><div class="step-desc">You watch the first cut and share feedback. I revise until it feels exactly right.</div></div>
+    <div class="step"><div class="step-num">05</div><div class="step-title">Delivery</div><div class="step-desc">Final files in your preferred format — platform-ready, on time, every time.</div></div>
+  </div>
+</div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="bb">
+<div class="section">
+  <p class="eyebrow">Testimonials</p>
+  <h2 class="s-heading">Edits that speak</h2>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"She understood exactly what I wanted before I could even fully explain it. The edit came back better than what I had in my head."</p><div class="testi-name">Mr. Tolu, The Set Apart Church</div><div class="testi-role">Content Creator</div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"My graduation highlight made me cry. She captured the whole day in a way that felt cinematic and real at the same time."</p><div class="testi-name">Bright</div><div class="testi-role">Graduate</div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Fast, professional, and she actually listens. Our reels have never looked better. She understands the brand and doesn't need to be told twice."</p><div class="testi-name">CEO, @the.beigeshop</div><div class="testi-role">Brand Owner</div></div>
+  </div>
+</div>
+</div>
+
+<!-- FAQ -->
+<div class="bb">
+<div class="section">
+  <p class="eyebrow">FAQ</p>
+  <h2 class="s-heading">Frequently asked questions</h2>
+  <div style="margin-top:2rem">
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">What kinds of projects do you take on? <span class="faq-icon">+</span></div><div class="faq-a">Pretty much everything video — short-form social content, creator collabs, wedding and graduation highlights, brand videos, event recap films, and motion graphics. If you're not sure whether your project fits, just reach out.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Can you help me come up with content ideas? <span class="faq-icon">+</span></div><div class="faq-a">Yes! I can help you develop content ideas and hooks that fit your niche, audience, and platform — especially useful for creators who want consistent content without burning out on planning.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">How long does a project take? <span class="faq-icon">+</span></div><div class="faq-a">Short-form content (Reels, TikToks) is usually delivered in 2–3 days. Event films and milestone highlights typically take 4–7 days. Rush delivery is available — just let me know upfront.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">How do I send you my footage? <span class="faq-icon">+</span></div><div class="faq-a">Google Drive or WeTransfer — whichever works for you. I'll confirm everything before starting and manage the full post-production workflow from there.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Do you work with international clients? <span class="faq-icon">+</span></div><div class="faq-a">Absolutely. I work fully remotely with clients across Nigeria and internationally. Everything is handled online from brief to final delivery.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">What software do you use? <span class="faq-icon">+</span></div><div class="faq-a">CapCut PC (Advanced) is my primary editing tool. I also use DaVinci Resolve for colour grading and Canva for graphic design and social media assets.</div></div>
+  </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div class="bb">
+<div class="section" id="contact">
+  <div class="contact-wrapper">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2 style="font-family:'Syne',sans-serif;font-size:36px;font-weight:700;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.1">One cut<br>at a time.</h2>
+      <p style="font-size:14px;color:var(--mid);line-height:1.8">Don't let your ideas sit idle. Reach out and let's make something worth watching.</p>
+      <div class="contact-info-row">
+        <div class="contact-info-item">📸 &nbsp;@_nimithecreative</div>
+        <div class="contact-info-item">✉️ &nbsp;nimithecreative@gmail.com</div>
+        <div class="contact-info-item">📞 &nbsp;+234 813 677 6255</div>
+      </div>
+      <p style="font-size:12px;color:#bbb;margin-top:1.5rem">Available remotely across Nigeria and internationally.<br>I typically respond within 24 hours.</p>
+    </div>
+    <form class="contact-form" name="contact" method="POST" data-netlify="true">
+      <div class="form-group"><label class="form-label">Name</label><input class="form-input" type="text" name="name" placeholder="Your full name" required/></div>
+      <div class="form-group"><label class="form-label">Email address</label><input class="form-input" type="email" name="email" placeholder="your@email.com" required/></div>
+      <div class="form-group"><label class="form-label">What do you need?</label>
+        <select class="form-select form-input" name="service">
+          <option>Short-form & social content</option>
+          <option>Creator content & collab</option>
+          <option>Wedding / graduation / milestone</option>
+          <option>Brand & promotional video</option>
+          <option>Event recap film</option>
+          <option>Motion graphics</option>
+          <option>Not sure yet — let's talk</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Tell me about your project</label><textarea class="form-textarea" name="message" placeholder="Share what you're working on — the more detail the better!"></textarea></div>
+      <button type="submit" class="submit-btn">Submit your request →</button>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div>
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">_nimithecreative</div>
+      <p class="footer-tagline">Bring your vision to life —<br>one frame at a time.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Quick links</p>
+      <div class="footer-links">
+        <a onclick="document.getElementById('works').scrollIntoView({behavior:'smooth'})">Projects</a>
+        <a onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</a>
+        <a onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Services</a>
+        <a onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-title">Reach out</p>
+      <div class="footer-links">
+        <a>nimithecreative@gmail.com</a>
+        <a>+234 813 677 6255</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-title">Socials</p>
+      <div class="footer-links">
+        <a href="https://instagram.com/_nimithecreative" target="_blank">Instagram</a>
+        <a>TikTok</a>
+        <a>YouTube</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 _nimithecreative. All rights reserved.</span>
+    <span>Lagos, Nigeria</span>
+  </div>
+</footer>
+</div>
+
+<script>
+function loadVideo(overlay, fileId) {
+  const wrap = overlay.parentElement;
+  const iframe = document.createElement('iframe');
+  iframe.src = 'https://drive.google.com/file/d/' + fileId + '/preview';
+  iframe.allow = 'autoplay';
+  iframe.allowFullscreen = true;
+  wrap.innerHTML = '';
+  wrap.appendChild(iframe);
+}
+
+function filter(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.work-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+</script>
+</body>
+</html>
