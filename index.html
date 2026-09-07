@@ -219,14 +219,15 @@ footer{padding:3rem 2.5rem;border-top:1px solid var(--border);max-width:1100px;m
 <div class="section" id="works">
   <p class="eyebrow">Work</p>
   <h2 class="s-heading">Selected edits</h2>
-  <p class="s-sub">22 projects across milestones, brands, events, creator content, and more.</p>
+  <p class="s-sub">24 projects across milestones, brands, events, motion graphics, creator content, and more.</p>
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="filter('all',this)">All (22)</button>
+    <button class="filter-btn active" onclick="filter('all',this)">All (24)</button>
     <button class="filter-btn" onclick="filter('milestone',this)">Milestones & Personal</button>
     <button class="filter-btn" onclick="filter('brand',this)">Brand & Commercial</button>
     <button class="filter-btn" onclick="filter('creator',this)">Creator / YouTube</button>
     <button class="filter-btn" onclick="filter('event',this)">Events & Organisations</button>
     <button class="filter-btn" onclick="filter('church',this)">Church & Faith</button>
+    <button class="filter-btn" onclick="filter('motion',this)">Motion Graphics</button>
   </div>
   <div class="works-grid" id="grid">
 
@@ -326,6 +327,16 @@ footer{padding:3rem 2.5rem;border-top:1px solid var(--border);max-width:1100px;m
     <div class="work-card" data-cat="church">
       <div class="video-wrap"><div class="video-overlay" onclick="loadVideo(this,'19gkZE5qCICTIh2aDpW2xvaEzByXTl0iT')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
       <div class="work-meta"><div class="work-cat">Church · Content</div><div class="work-title-t">Church Content — Cut 2</div></div>
+    </div>
+
+    <!-- MOTION TYPOGRAPHY -->
+    <div class="work-card" data-cat="motion">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadYT(this,'qPrXwOhHhAY')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Motion Graphics · Typography</div><div class="work-title-t">Motion Typography Project 1</div></div>
+    </div>
+    <div class="work-card" data-cat="motion">
+      <div class="video-wrap"><div class="video-overlay" onclick="loadYT(this,'ctWTH6ELIHM')"><div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span class="overlay-label">Click to play</span></div></div>
+      <div class="work-meta"><div class="work-cat">Motion Graphics · Typography</div><div class="work-title-t">Motion Typography Project 2</div></div>
     </div>
 
   </div>
@@ -495,6 +506,16 @@ footer{padding:3rem 2.5rem;border-top:1px solid var(--border);max-width:1100px;m
 </div>
 
 <script>
+function loadYT(overlay, videoId) {
+  const wrap = overlay.parentElement;
+  const iframe = document.createElement('iframe');
+  iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
+  iframe.allow = 'autoplay; fullscreen';
+  iframe.allowFullscreen = true;
+  wrap.innerHTML = '';
+  wrap.appendChild(iframe);
+}
+
 function loadVideo(overlay, fileId) {
   const wrap = overlay.parentElement;
   const iframe = document.createElement('iframe');
